@@ -15,10 +15,13 @@ count = 0
 #현재 포지션
 position = [a, b]
 #현재 좌표
-rows[a][b]
+#rows[a][b]
+
 #이동 후의 좌표
 #n_a
 #n_b
+
+last_count = 0  #갈곳없는 경우를 구현해보자
 
 # 바다(1)와 육지(0) 구현
 for i in range(n):
@@ -33,7 +36,10 @@ print("주인공의 위치 :" + str(rows[a][b]))
 # 0은 육지이자 갈 수 있는 곳
 # 1은 바다이자 갈 수 없는 곳
 # 2는 가본 육지이자 갈 수 없는 곳
-while True:
+
+k = 0
+
+while k < 1:
   # 방향 왼쪽으로 틀기
   if d == 0:  #북쪽이면
     d = 3
@@ -50,15 +56,25 @@ while True:
 
   if rows[n_a][n_b] == 0:
     count += 1
-    rows[a][b] = 1
+    rows[a][b] = 2
     a = n_a
     b = n_b
+    last_count = 0
     continue
 
   else:  #다시 원래칸으로 돌아가고, 왼쪽으로 회전만
     n_a = a
     n_b = b
-    continue  #다시 돌아가기
+    last_count += 1
+    if last_count != 4:
+      continue
+    else:
+      a = a - next_positions[d][0]
+      b = b - next_positions[d][1]
+      count += 1
+      if rows[a][b] == 1:
+        k = 1
 
-#아 3번째 메뉴얼을 구현을 못하겠네..
-#아
+print(count)
+#왜 안되지?????
+#이게 왜 안됨?????
